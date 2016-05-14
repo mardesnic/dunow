@@ -8,3 +8,4 @@ plugins/
 *.xml
 *.iml
 .idea/.name
+*.log
