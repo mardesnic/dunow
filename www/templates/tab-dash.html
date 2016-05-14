@@ -1,0 +1,16 @@
+<ion-view view-title="Location">
+  <ion-content class="padding">
+    <div ng-repeat="location in locations">
+      <ion-item href="#/tab/dash/{{location.$id}}">
+        <div class="item-icon-left">
+          &nbsp; {{location.name}}
+          <i ng-if="location.live" class="icon ion-ios-videocam-outline"></i>
+        </div>
+        <div class="item-icon-right">
+          <i class="icon ion-ios-arrow-right"></i>
+        </div>
+
+      </ion-item>
+    </div>
+  </ion-content>
+</ion-view>
