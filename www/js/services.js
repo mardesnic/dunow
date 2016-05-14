@@ -1,4 +1,4 @@
-angular.module('starter.services', ['ionic', 'firebase','starter.controllers', 'starter.services'])
+angular.module('dunow.services', ['ionic', 'firebase','dunow.controllers', 'dunow.services'])
 
   .factory("Locations", function($firebaseArray) {
     var itemsRef = new Firebase("https://dunow.firebaseio.com/locations");
@@ -20,20 +20,4 @@ angular.module('starter.services', ['ionic', 'firebase','starter.controllers', '
       }
     };
 
-  })
-
-  .factory("Map", function($firebaseArray)
-  {
-    var fb = new Firebase("https://dunow.firebaseio.com/");
-    var itemsRef = new Firebase("https://dunow.firebaseio.com/location");
-    return $firebaseArray(itemsRef);
-  })
-
-  .filter('range', function() {
-    return function(val, range) {
-      range = parseInt(range);
-      for (var i=0; i<range; i++)
-        val.push(i);
-      return val;
-    };
   });

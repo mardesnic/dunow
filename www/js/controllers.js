@@ -1,25 +1,9 @@
-angular.module('starter.controllers', [])
+angular.module('dunow.controllers', [])
 
   .controller('MapCtrl', function($scope, $state, Locations,$timeout,$ionicSideMenuDelegate)
   {
-    var gradient2 = [
-      'rgba(0, 200, 255, 0)',
-      'rgba(0, 200, 255, 1)',
-      'rgba(0, 191, 255, 1)',
-      'rgba(0, 127, 255, 1)',
-      'rgba(0, 63, 255, 1)',
-      'rgba(0, 0, 255, 1)',
-      'rgba(0, 0, 223, 1)',
-      'rgba(0, 0, 191, 1)',
-      'rgba(0, 0, 159, 1)',
-      'rgba(0, 0, 127, 1)',
-      'rgba(63, 0, 91, 1)',
-      'rgba(127, 0, 63, 1)',
-      'rgba(191, 0, 31, 1)',
-      'rgba(255, 0, 0, 1)'
-    ];
-    //za temperaturu zraka
-    var  gradient3 = [
+    $scope.locations = Locations.all();
+    var  gradientOrange = [
       'rgba(255, 255, 0, 0)',
       'rgba(255, 255, 0, 1)',
       'rgba(255, 225, 0, 1)',
@@ -35,26 +19,74 @@ angular.module('starter.controllers', [])
       'rgba(255, 25, 0, 1)',
       'rgba(255, 0, 0, 1)'
     ];
-    //za zagadjenost zraka
-    var  gradient33 = [
+    var gradientWhiteRed = [
+      'rgba(255, 255, 255, 0)',
+      'rgba(255, 255, 255, 1)',
+      'rgba(255, 225, 225, 1)',
+      'rgba(255, 200, 200, 1)',
+      'rgba(255, 175, 175, 1)',
+      'rgba(255, 160, 160, 1)',
+      'rgba(255, 145, 145, 1)',
+      'rgba(255, 125, 125, 1)',
+      'rgba(255, 110, 110, 1)',
+      'rgba(255, 100, 100, 1)',
+      'rgba(255, 75, 75, 1)',
+      'rgba(255, 50, 50, 1)',
+      'rgba(255, 25, 25, 1)',
+      'rgba(255, 0, 0, 1)'
+    ];
+    var  gradientGreenRed = [
       'rgba(0, 255, 0, 0)',
-      'rgba(0, 255, 0, 1)',
-      'rgba(0, 225, 0, 1)',
-      'rgba(0, 200, 0, 1)',
-      'rgba(0, 175, 0, 1)',
-      'rgba(0, 160, 0, 1)',
-      'rgba(0, 145, 0, 1)',
-      'rgba(0, 125, 0, 1)',
-      'rgba(0, 110, 0, 1)',
-      'rgba(0, 100, 0, 1)',
-      'rgba(0, 75, 0, 1)',
-      'rgba(0, 50, 0, 1)',
-      'rgba(0, 25, 0, 1)',
+      'rgba(25, 235, 0, 1)',
+      'rgba(50, 225, 0, 1)',
+      'rgba(75, 200, 0, 1)',
+      'rgba(100, 175, 0, 1)',
+      'rgba(110, 160, 0, 1)',
+      'rgba(125, 145, 0, 1)',
+      'rgba(145, 125, 0, 1)',
+      'rgba(160, 110, 0, 1)',
+      'rgba(175, 100, 0, 1)',
+      'rgba(200, 75, 0, 1)',
+      'rgba(225, 50, 0, 1)',
+      'rgba(235, 25, 0, 1)',
+      'rgba(255, 0, 0, 1)'
+    ];
+
+    var  gradientWhiteBlack = [
+      'rgba(255, 255, 255, 0)',
+      'rgba(255, 255, 255, 1)',
+      'rgba(225, 225, 225, 1)',
+      'rgba(200, 200, 200, 1)',
+      'rgba(175, 175, 175, 1)',
+      'rgba(160, 160, 160, 1)',
+      'rgba(145, 145, 145, 1)',
+      'rgba(125, 125, 125, 1)',
+      'rgba(110, 110, 110, 1)',
+      'rgba(100, 100, 100, 1)',
+      'rgba(75, 75, 75, 1)',
+      'rgba(50, 50, 50, 1)',
+      'rgba(25, 25, 25, 1)',
       'rgba(0, 0, 0, 1)'
+    ];
+    var gradientWhiteGreen = [
+      'rgba(255, 255, 255, 0)',
+      'rgba(235, 255, 235, 1)',
+      'rgba(225, 255, 225, 1)',
+      'rgba(200, 255, 200, 1)',
+      'rgba(175, 255, 175, 1)',
+      'rgba(160, 255, 160, 1)',
+      'rgba(145, 255, 145, 1)',
+      'rgba(125, 255, 125, 1)',
+      'rgba(110, 255, 110, 1)',
+      'rgba(100, 255, 100, 1)',
+      'rgba(75, 255, 75, 1)',
+      'rgba(50, 255, 50, 1)',
+      'rgba(25, 255, 25, 1)',
+      'rgba(0, 255, 0, 1)'
     ];
 
     $scope.type=1;
-    $scope.gradient=gradient3;
+    $scope.gradient=gradientOrange;
 
     $scope.trigger = function (type)
     {
@@ -63,38 +95,32 @@ angular.module('starter.controllers', [])
       if(type==1)
       {
         $scope.type=type;
-        $scope.gradient=gradient3;
-        initHeatMapMarkers(type,gradient3);
+        $scope.gradient=gradientOrange;
+        initHeatMapMarkers();
       }
       else if(type==2)
       {
         $scope.type=2;
-        $scope.gradient=gradient2;
-        initHeatMapMarkers(type,gradient2);
-      }
-      else if(type==3)
-      {
-        $scope.type=3;
-        $scope.gradient=gradient3;
-        initHeatMapMarkers(type,gradient3);
+        $scope.gradient=gradientWhiteRed;
+        initHeatMapMarkers();
       }
       else if(type==4)
       {
         $scope.type=4;
-        $scope.gradient=gradient2;
-        initHeatMapMarkers(type,gradient2);
+        $scope.gradient=gradientWhiteBlack;
+        initHeatMapMarkers();
       }
       else if(type==5)
       {
         $scope.type=5;
-        $scope.gradient=gradient33;
-        initHeatMapMarkers(type,gradient33);
+        $scope.gradient=gradientGreenRed;
+        initHeatMapMarkers();
       }
       else if(type==6)
       {
         $scope.type=6;
-        $scope.gradient=gradient3;
-        initHeatMapMarkers(type,gradient3);
+        $scope.gradient=gradientWhiteGreen;
+        initHeatMapMarkers();
       }
     };
 
@@ -104,135 +130,99 @@ angular.module('starter.controllers', [])
     };
 
     initMap();
-    function getHeatmapRadius(zoom)
-    {
-      return (zoom - 12) * 10;
-    }
-
-
-    function initMap()
-    {
-      Locations.all().$loaded()
-        .then(
-          function(locations){
-            var heatMapData = [];
-            for(var i=0;i<locations.length;i++)
-            {
-              if( (typeof $scope.type !== 'undefined') && $scope.type==1)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].temperature});
-              }
-              else if($scope.type==2)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].uv});
-              }
-              else if($scope.type==3)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].sea_temperature});
-              }
-              else if($scope.type==4)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].humidity});
-              }
-              else if($scope.type==5)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].mq});
-              }
-              else if($scope.type==6)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].ppl});
-              }
-            }
-            return heatMapData;
-          }
-        )
-        .then(
-          function(heatMapData)
-          {
-            var dubrovnik = new google.maps.LatLng(42.644739, 18.105468);
-
-            $scope.map = new google.maps.Map(document.getElementById('map'), {
-              center: dubrovnik,
-              zoom: 14,
-              scrollwheel: false,
-              mapTypeId: google.maps.MapTypeId.SATELLITE
-            });
-
-            $scope.heatmap = new google.maps.visualization.HeatmapLayer({
-              data: heatMapData,
-              disipating : true,
-              gradient : $scope.gradient,
-              radius : getHeatmapRadius($scope.map.zoom)
-            });
-            $scope.heatmap.setMap($scope.map);
-          }
-        );
-    }
-
-    function initHeatMapMarkers(type,gradient)
-    {
-      $scope.heatmap.setMap(null);
-      Locations.all().$loaded()
-        .then(
-          function(locations){
-            var heatMapData = [];
-            for(var i=0;i<locations.length;i++)
-            {
-              if( (typeof $scope.type !== 'undefined') && $scope.type==1)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].temperature});
-              }
-              else if($scope.type==2)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].uv});
-
-              }
-              else if($scope.type==3)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].sea_temperature});
-              }
-              else if($scope.type==4)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].humidity});
-              }
-              else if($scope.type==5)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].mq});
-              }
-              else if($scope.type==6)
-              {
-                heatMapData.push({location: new google.maps.LatLng(locations[i].lat,locations[i].lng), weight: locations[i].ppl});
-              }
-            }
-            return heatMapData;
-          }
-        )
-        .then(
-          function(heatMapData)
-          {
-            $scope.heatmap = new google.maps.visualization.HeatmapLayer({
-              data: heatMapData,
-              disipating : true,
-              radius : getHeatmapRadius($scope.map.zoom),
-              gradient : $scope.gradient
-            });
-            $scope.heatmap.setMap($scope.map);
-          }
-        );
-    }
-
+    $timeout(wrapper, 3000);
 
     function wrapper()
     {
-      initHeatMapMarkers($scope.type,$scope.gradient);
+      initHeatMapMarkers();
       $timeout(wrapper, 10000);
     }
 
-    $timeout(wrapper, 10000);
+    function initMap()
+    {
+      var dubrovnik = new google.maps.LatLng(42.644739, 18.105468);
+      $scope.map = new google.maps.Map(document.getElementById('map'), {
+        center: dubrovnik,
+        zoom: 14,
+        scrollwheel: false,
+        mapTypeId: google.maps.MapTypeId.SATELLITE
+      });
+
+      $scope.heatmap = new google.maps.visualization.HeatmapLayer({});
+      $scope.markers = [];
+
+    }
+
+    function initHeatMapMarkers()
+    {
+      deleteMarkers();
+      $scope.heatmap.setMap(null);
+      var heatMapData = [];
+      for(var i=0;i<$scope.locations.length;i++)
+      {
+        if($scope.type==1)
+        {
+          addMarker(new google.maps.LatLng($scope.locations[i].lat,$scope.locations[i].lng), $scope.locations[i].temperature);
+          heatMapData.push({location: new google.maps.LatLng($scope.locations[i].lat,$scope.locations[i].lng), weight: $scope.locations[i].temperature});
+        }
+        else if($scope.type==2)
+        {
+          addMarker(new google.maps.LatLng($scope.locations[i].lat,$scope.locations[i].lng), $scope.locations[i].uv);
+          heatMapData.push({location: new google.maps.LatLng($scope.locations[i].lat,$scope.locations[i].lng), weight: $scope.locations[i].uv});
+        }
+        else if($scope.type==4)
+        {
+          addMarker(new google.maps.LatLng($scope.locations[i].lat,$scope.locations[i].lng), $scope.locations[i].humidity);
+          heatMapData.push({location: new google.maps.LatLng($scope.locations[i].lat,$scope.locations[i].lng), weight: $scope.locations[i].humidity});
+        }
+        else if($scope.type==5)
+        {
+          addMarker(new google.maps.LatLng($scope.locations[i].lat,$scope.locations[i].lng), $scope.locations[i].mq);
+          heatMapData.push({location: new google.maps.LatLng($scope.locations[i].lat,$scope.locations[i].lng), weight: $scope.locations[i].mq});
+        }
+        else if($scope.type==6)
+        {
+          addMarker(new google.maps.LatLng($scope.locations[i].lat,$scope.locations[i].lng), $scope.locations[i].ppl);
+          heatMapData.push({location: new google.maps.LatLng($scope.locations[i].lat,$scope.locations[i].lng), weight: $scope.locations[i].ppl});
+        }
+      }
+
+      $scope.heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatMapData,
+        disipating : true,
+        radius : 50,
+        gradient : $scope.gradient
+      });
+      $scope.heatmap.setMap($scope.map);
+      setMapOnAll($scope.map);
+
+    }
+    function addMarker(location, value) {
+      var marker = new google.maps.Marker({
+        position: location,
+        title: value,
+        icon: '../img/trans.png',
+        map: $scope.map
+      });
+      $scope.markers.push(marker);
+    }
+    function deleteMarkers() {
+      clearMarkers();
+      $scope.markers = [];
+    }
+    function clearMarkers() {
+      setMapOnAll(null);
+    }
+    function setMapOnAll(map) {
+      for (var i = 0; i < $scope.markers .length; i++) {
+        $scope.markers [i].setMap(map);
+      }
+    }
+
   })
 
 
-  .controller("HomeCtrl", function($scope, $sce,$window, Locations)
+  .controller("LocationsCtrl", function($scope, $sce,$window, Locations)
   {
     $scope.init = function(stream)
     {
@@ -240,40 +230,6 @@ angular.module('starter.controllers', [])
       $scope.url = $sce.trustAsResourceUrl($scope.url);
     }
     $scope.locations = Locations.all();
-
-    $scope.toggleGroup = function(group)
-    {
-      if ($scope.isGroupShown(group))
-      {
-        $scope.shownGroup = null;
-      }
-      else
-      {
-        $scope.shownGroup = group;
-        $scope.init(group);
-      }
-    };
-
-    $scope.isGroupShown = function(group)
-    {
-      return $scope.shownGroup === group;
-    };
-
-    $scope.getTotal = function(location)
-    {
-      var total = 0;
-      var br=0;
-      var locationRatings = location.ratings;
-      for (var rating in locationRatings)
-      {
-        total += locationRatings[rating];
-        br++;
-      }
-      return total/br;
-    }
-    $scope.rate = function(rate){
-      $window.alert(rate+1);
-    };
   })
 
   .controller('LocationDetailCtrl', function($scope, $stateParams,$firebaseObject,$sce,Chat)
@@ -297,52 +253,4 @@ angular.module('starter.controllers', [])
         $scope.chat.$add(msg);
       }
     };
-  })
-
-  .controller('AdminCtrl', function($scope, Locations,$window, $ionicModal)
-  {
-    $scope.locations = Locations.all();
-    $scope.location={};
-    $scope.master = {};
-
-    $scope.update = function(location)
-    {
-      if($scope.location.name)
-      {
-        $scope.locations.$add(location);
-        $scope.reset();
-      }
-      else
-      {
-        $window.alert("fail");
-      }
-    };
-
-    $scope.reset = function()
-    {
-      $scope.location = angular.copy($scope.master);
-    };
-    $ionicModal.fromTemplateUrl('new-location.html',
-      {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal)
-    {
-      $scope.modal = modal;
-    });
-    $scope.openModal = function()
-    {
-      $scope.modal.show();
-    };
-    $scope.closeModal = function()
-    {
-      $scope.modal.hide();
-    };
-    $scope.$on('$destroy', function()
-    {
-      $scope.modal.remove();
-    });
-    $scope.$on('modal.hidden', function(){});
-    $scope.$on('modal.removed', function(){});
-
   });
