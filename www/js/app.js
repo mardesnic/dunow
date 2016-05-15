@@ -1,14 +1,15 @@
 angular.module('dunow', ['ionic', 'dunow.controllers', 'dunow.services'])
 
   .run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
-
-      if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+    $ionicPlatform.ready(function()
+    {
+      if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard)
+      {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
-
       }
-      if (window.StatusBar) {
+      if (window.StatusBar)
+      {
         StatusBar.styleDefault();
       }
     });
@@ -16,7 +17,6 @@ angular.module('dunow', ['ionic', 'dunow.controllers', 'dunow.services'])
 
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
-
       .state('tab', {
         url: '/tab',
         abstract: true,
@@ -49,7 +49,5 @@ angular.module('dunow', ['ionic', 'dunow.controllers', 'dunow.services'])
           }
         }
       })
-
     $urlRouterProvider.otherwise('/tab/map');
-
   });

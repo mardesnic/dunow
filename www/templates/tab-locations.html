@@ -1,15 +1,27 @@
 <ion-view view-title="Locations">
+
   <ion-content class="padding">
-    <div ng-repeat="location in locations">
-      <ion-item href="#/tab/locations/{{location.$id}}">
-        <div class="item-icon-left">
-          &nbsp; {{location.name}}
-          <i ng-if="location.live" class="icon ion-ios-videocam-outline"></i>
-        </div>
-        <div class="item-icon-right">
-          <i class="icon ion-ios-arrow-right"></i>
-        </div>
-      </ion-item>
+
+    <div class = "row responsive-sm" ng-repeat="location in locations">
+
+      <div class = "col col-50 col-offset-25">
+
+        <ion-item href="#/tab/locations/{{location.$id}}">
+
+          {{location.name}}
+
+          <div class="item-icon-right">
+
+            <i class="icon ion-ios-arrow-right"></i>
+
+          </div>
+
+        </ion-item>
+
+      </div>
+
     </div>
+
   </ion-content>
+
 </ion-view>

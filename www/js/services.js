@@ -9,15 +9,4 @@ angular.module('dunow.services', ['ionic', 'firebase','dunow.controllers', 'duno
       }
     };
 
-  })
-
-  .factory("Chat", function($firebaseArray)
-  {
-    return {
-      all: function(id) {
-        var itemsRef = new Firebase("https://dunow.firebaseio.com/locations/"+id+"/chat");
-        return $firebaseArray(itemsRef.endAt().limitToLast(30));
-      }
-    };
-
   });
